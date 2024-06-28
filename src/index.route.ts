@@ -5,7 +5,7 @@ const ParamsSchema = z.object({
   id: z
     .string()
     .min(1)
-    .max(999)
+    .max(3)
     .openapi({
       param: {
         name: "id",
@@ -17,10 +17,10 @@ const ParamsSchema = z.object({
 
 const UserOutputSchema = z
   .object({
-    id: z.string().min(1).max(999).openapi({
+    id: z.string().min(1).max(3).openapi({
       example: "100",
     }),
-    age: z.number().min(1).max(200).openapi({
+    age: z.number().min(1).max(3).openapi({
       example: 25,
     }),
     name: z.string().openapi({
@@ -52,6 +52,18 @@ export const getUserIdRoute = createRoute({
       content: {
         "application/json": {
           schema: UserOutputSchema,
+        },
+      },
+    },
+    400: {
+      description: "Bad Request",
+      content: {
+        "application/json": {
+          schema: z.object({
+            message: z.string().openapi({
+              example: "Invalid id",
+            }),
+          }),
         },
       },
     },

@@ -7,15 +7,19 @@ const app = new OpenAPIHono();
 // -------- GET /users/{id} --------
 app.openapi(getUserIdRoute, (c) => {
   const { id } = c.req.valid("param");
-  return c.json(
-    {
-      id,
-      age: 25,
-      name: "Kaeya Alberich",
-      tel: "0123-456-789",
-    },
-    200
-  );
+  if (id === "999") {
+    return c.json({ message: "Not Found" }, 404);
+  } else {
+    return c.json(
+      {
+        id,
+        age: 25,
+        name: "Kaeya Alberich",
+        tel: "0123-456-789",
+      },
+      200
+    );
+  }
 });
 
 // -------- ドキュメント生成 --------
