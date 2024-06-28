@@ -1,6 +1,6 @@
 To install dependencies:
 ```sh
-bun install
+bun install --frozen-lockfile 
 ```
 
 To run:
@@ -8,4 +8,12 @@ To run:
 bun run dev
 ```
 
+To test:
+```sh
+bun run test ./src/index.test.ts
+```
+
 open http://localhost:3000
+
+Document
+open http://localhost:3000/docs/UI
