@@ -4,6 +4,7 @@ import { getUserIdRoute } from "./index.route";
 
 const app = new OpenAPIHono();
 
+// -------- GET /users/{id} --------
 app.openapi(getUserIdRoute, (c) => {
   const { id } = c.req.valid("param");
   return c.json(
@@ -17,8 +18,7 @@ app.openapi(getUserIdRoute, (c) => {
   );
 });
 
-export default app;
-
+// -------- ドキュメント生成 --------
 app.doc("/docs/json", {
   openapi: "3.0.0",
   info: {
@@ -30,3 +30,5 @@ APIを爆速でドキュメント化するためのサンプルプロジェク�
   },
 });
 app.get("/docs/UI", swaggerUI({ url: "/docs/json" }));
+
+export default app;
