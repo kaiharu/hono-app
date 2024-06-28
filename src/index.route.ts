@@ -3,7 +3,7 @@ import { z, createRoute } from "@hono/zod-openapi";
 // -------- Schemas --------
 const ParamsSchema = z.object({
   id: z
-    .number()
+    .string()
     .min(1)
     .max(999)
     .openapi({
@@ -11,14 +11,14 @@ const ParamsSchema = z.object({
         name: "id",
         in: "path",
       },
-      example: 100,
+      example: "100",
     }),
 });
 
 const UserOutputSchema = z
   .object({
-    id: z.number().min(1).max(999).openapi({
-      example: 100,
+    id: z.string().min(1).max(999).openapi({
+      example: "100",
     }),
     age: z.number().min(1).max(200).openapi({
       example: 25,
