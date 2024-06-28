@@ -1,9 +1,32 @@
-import { Hono } from "hono";
+import { OpenAPIHono } from "@hono/zod-openapi";
+import { swaggerUI } from "@hono/swagger-ui";
+import { getUserIdRoute } from "./index.route";
 
-const app = new Hono();
+const app = new OpenAPIHono();
 
-app.get("/", (c) => {
-  return c.text("Hello Hono!");
+app.openapi(getUserIdRoute, (c) => {
+  const { id } = c.req.valid("param");
+  return c.json(
+    {
+      id,
+      age: 25,
+      name: "Kaeya Alberich",
+      tel: "0123-456-789",
+    },
+    200
+  );
 });
 
 export default app;
+
+app.doc("/docs/json", {
+  openapi: "3.0.0",
+  info: {
+    version: "1.0.0",
+    title: "APIドキュメント",
+    description: `## 概要
+APIを爆速でドキュメント化するためのサンプルプロジェクトです。
+`,
+  },
+});
+app.get("/docs/UI", swaggerUI({ url: "/docs/json" }));
