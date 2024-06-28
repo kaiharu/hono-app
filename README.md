@@ -15,5 +15,4 @@ bun run test ./src/index.test.ts
 
 open http://localhost:3000
 
-Document
-open http://localhost:3000/docs/UI
+Document http://localhost:3000/docs/UI
